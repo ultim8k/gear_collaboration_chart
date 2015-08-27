@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GEAR Members' Chart</title>
+
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="page-cnt container-fluid">
+		<div class="row page-header">
+			<div class="col-md-8 col-sm-8 col-xs-12">
+				<a href="http://gear.math.illinois.edu/" title="GEAR | Illinois"><img class="img-responsive header__logo" src="img/gearlogo3.jpg" alt="GEAR Logo"></a>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<a class="header__uni-link uni-link--illinois" target="_blank" href="http://www.math.illinois.edu/" title="University of Illinois - Math Department">Illinois</a>
+				<a class="header__uni-link uni-link--maryland" target="_blank" href="http://www-math.umd.edu/" title="University of Maryland - Math Department">Maryland</a>
+				<a class="header__uni-link uni-link--standford" target="_blank" href="https://math.stanford.edu/" title="Stanford University - Math Department">Stanford</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1>GEAR Collaboration Chart</h1>
+				<p>The following chart aims to present collaborations among the GEAR Network Members. For this purpose, there are included only research papers co-authored by at least two GEAR Members and published since the establishment of the GEAR Network. In order to locate a Member in the graph, a node locator tool <span class="toggle__icon toggle__icon--default glyphicon glyphicon-align-justify"></span> is included on the top right side of the graph.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="js_chart_parent_col chart-parent-col col-md-12 col-sm-12">
+				<div class="clearfix chart-cnt">
+					<span class="js_toggle_names_dropdown toggle-sidebar" title="Open names list">
+						<span class="toggle__icon toggle__icon--default glyphicon glyphicon-align-justify"></span>
+						<span class="toggle__icon toggle__icon--hover glyphicon glyphicon-list"></span>
+					</span>
+					<div class="js_names_dropdown dropdown dropdown--for-names col-md-4 col-sm-5">
+						<div class="gear-members__chart__items">
+							<ul class="list-group js_members_list"></ul>
+						</div>
+					</div>
+					<div class="clearfix js_draw_members members-wrap"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<p>In case you notice any omissions or inaccuracies in the graph, we would appreciate it if you let us know by completing <a target="_blank" href="https://docs.google.com/forms/d/1hEGq_df1rIQoglkEmRm0Ph8XW0JogbCndyrri6U7_Sc/viewform">this online form</a>.</p>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<em>Further reference:</em>
+				<ul>
+					<li><a href="http://www.ams.org/mathscinet" title="MathSciNet"><em>MathSciNet</em></a></li>
+					<li><a href="http://arxiv.org/multi?group=grp_math&%2Ffind=Search" title="arXiv"><em>arXiv</em></a></li>
+					<li><a href="http://www.ams.org/mathscinet/collaborationDistance.html" title="AMS Collaboration Distance"><em>AMS Collaboration Distance</em></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="js_backtotop btn-backtotop"><span class="glyphicon glyphicon-chevron-up"></span></div>
+		<!-- <div class="js_backtotop btn-backtotop">&#9650;</div> -->
+
+		<div class="row page-footer">
+			<div class="col-md-7">
+				<p>Copyright &copy; 2014 GEometric structures And Representation varieties.</p>
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+	</div>
+	<div class="modal fade" id="expandedPaperModal" tabindex="-1" role="dialog" aria-labelledby="expandedPaperModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="expandedPaperModalLabel">Research articles</h4>
+				</div>
+				<div class="modal-body">
+					<div class="js_expanded_paper_details"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Handlebars Templates -->
+	<script id="member-tpl" type="text/x-handlebars-template">
+		<div id="{{id}}" class="gear-member js_gear-member {{itemClass}}">
+			<span class="member__firstName">{{firstName}}</span> <span class="member__lastName">{{lastName}}</span>
+		</div>
+	</script>
+	<script id="member-point-tpl" type="text/x-handlebars-template">
+		<div id="{{member_id}}" style="top:{{pos_y}}px;left:{{pos_x}}px;background-color:{{color}};" class="gear-member-point js_gear-member-point {{_itemClass}}" data-toggle="tooltip" title="{{name}} {{surname}}">
+			{{!-- <span class="member__id">{{member_initials}}</span> --}}
+			<div class="clearfix member__inner">
+				<div class="clearfix member__details">
+					<span class="member__firstName">{{name}}</span>
+					<span class="member__lastName">{{surname}}</span>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script id="member-list__item-tpl" type="text/x-handlebars-template">
+		<li id="list-item__{{member_id}}" class="list-group-item gear-member-list__item js_gear-member-list__item {{_itemClass}}--list-item" title="Show chart for {{surname}} {{name}}">
+			<span class="list-item__member__id js_list-item__member__id">{{member_id}}</span>
+			<span class="list-item__member__inner">
+				<span class="list-item__member__details">
+					<span class="list-item__member__lastName">{{surname}}</span>,
+					<span class="list-item__member__firstName">{{name}}</span>
+				</span>
+			</span>
+		</li>
+	</script>
+	<script id="expanded-paper-details-tpl" type="text/x-handlebars-template">
+		<div id="paper--{{id}}" class="paper-block">
+			<div class="paper__description">{{description}}</div>
+		</div>
+	</script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/vendor/jquery-1.11.0.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+	<script src="js/vendor/underscore-min.js" type="text/javascript"></script>
+	<script>window._ || document.write('<script src="js/vendor/underscore-min.js"><\/script>')</script>
+	<script src="js/vendor/jquery.jsPlumb-1.6.2-min.js"></script>
+	<script src="js/vendor/handlebars-v1.3.0.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<!-- <script src="js/main.js"></script> -->
+	<script src="js/app.js"></script>
+</body>
+</html>
